@@ -16,7 +16,6 @@
 </form>
 
 
-
 <?php
 
 $validCountryCodes = [
@@ -106,8 +105,6 @@ function checkVatWithVies($countryCode, $nationalNumber)
 
     if ($body === false) {
         $error = curl_error($curl);
-        curl_close($curl);
-
         return [
             "response" => null,
             "httpStatus" => $httpStatus,
@@ -115,15 +112,46 @@ function checkVatWithVies($countryCode, $nationalNumber)
         ];
     }
 
-    curl_close($curl);
-
     $response = json_decode($body, true);
+    $jsonError = json_last_error();
 
-    if (json_last_error() !== JSON_ERROR_NONE) {
+    if ($httpStatus === 400) {
+        return [
+            "response" => $jsonError === JSON_ERROR_NONE ? $response : null,
+            "httpStatus" => $httpStatus,
+            "error" => "VIES rejected the request (HTTP 400).",
+        ];
+    }
+
+    if ($httpStatus === 500) {
+        return [
+            "response" => $jsonError === JSON_ERROR_NONE ? $response : null,
+            "httpStatus" => $httpStatus,
+            "error" => "VIES returned a server error (HTTP 500).",
+        ];
+    }
+
+    if ($httpStatus !== 200) {
+        return [
+            "response" => $jsonError === JSON_ERROR_NONE ? $response : null,
+            "httpStatus" => $httpStatus,
+            "error" => "Unexpected HTTP status from VIES: " . $httpStatus,
+        ];
+    }
+
+    if ($jsonError !== JSON_ERROR_NONE) {
         return [
             "response" => null,
             "httpStatus" => $httpStatus,
             "error" => "Could not decode the VIES response: " . json_last_error_msg(),
+        ];
+    }
+
+    if (!is_array($response) || !array_key_exists("valid", $response) || !is_bool($response["valid"])) {
+        return [
+            "response" => $response,
+            "httpStatus" => $httpStatus,
+            "error" => "Unexpected VIES response: expected a boolean 'valid' field.",
         ];
     }
 
@@ -157,7 +185,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     else{
         echo "<p>Country Code: " . htmlspecialchars($countryCode) . "</p>";
         echo "<p>National Number: " . htmlspecialchars($nationalNumber) . "</p>";
+        $viesResult = checkVatWithVies($countryCode, $nationalNumber);
 
+        if ($viesResult["error"] !== null) {
+            echo "<p>VIES check could not be completed: "
+                . htmlspecialchars($viesResult["error"], ENT_QUOTES, "UTF-8") . "</p>";
+        } elseif ($viesResult["response"]["valid"] === true) {
+            echo "<p>VAT number is valid (official source)</p>";
+        } elseif ($viesResult["response"]["valid"] === false) {
+            echo "<p>VAT number is invalid (official source).</p>";
+        }
     }
 }
 ?>
