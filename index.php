@@ -190,10 +190,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($viesResult["error"] !== null) {
             echo "<p>VIES check could not be completed: "
                 . htmlspecialchars($viesResult["error"], ENT_QUOTES, "UTF-8") . "</p>";
-        } elseif ($viesResult["response"]["valid"] === true) {
-            echo "<p>VAT number is valid (official source)</p>";
-        } elseif ($viesResult["response"]["valid"] === false) {
-            echo "<p>VAT number is invalid (official source).</p>";
+        } else {
+            $viesResponse = $viesResult["response"];
+
+            if ($viesResponse["valid"] === true) {
+                echo "<p>VAT number is valid (official source)</p>";
+            } else {
+                echo "<p>VAT number is invalid (official source).</p>";
+            }
+
+            $fieldsToDisplay = [
+                "Company name" => $viesResponse["name"] ?? null,
+                "Registered address" => $viesResponse["address"] ?? null,
+                "Verification timestamp" => $viesResponse["requestDate"] ?? null,
+                "Consultation reference" => $viesResponse["requestIdentifier"] ?? null,
+            ];
+
+            foreach ($fieldsToDisplay as $label => $value) {
+                if (!is_string($value) || trim($value) === "" || trim($value) === "---") {
+                    $displayValue = "Not provided by member state";
+                } else {
+                    $displayValue = htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, "UTF-8");
+                }
+
+                echo "<p>" . $label . ": " . $displayValue . "</p>";
+            }
         }
     }
 }
