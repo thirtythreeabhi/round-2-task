@@ -15,7 +15,7 @@
     <button type="submit"> Submit</button>
 </form>
 
-</body>
+
 
 <?php
 
@@ -34,11 +34,11 @@ $nationalNumberFormats = [
     "DK" => '/^\d{8}$/',
     "EE" => '/^\d{9}$/',
     "FI" => '/^\d{8}$/',
-    "FR" => '/^[A-Z0-9]{2}\d{9}$/',
+    "FR" => '/^[A-HJ-NP-Z0-9]{2}\d{9}$/',
     "DE" => '/^\d{9}$/',
     "EL" => '/^\d{9}$/',
     "HU" => '/^\d{8}$/',
-    "IE" => '/^(?:\d{7}[A-Z]{1,2}|\d[A-Z]\d{5}[A-Z])$/',
+    "IE" => '/^(?:\d{7}[A-Z]{1,2}|\d[A-Z+*]\d{5}[A-Z])$/',
     "IT" => '/^\d{11}$/',
     "LV" => '/^\d{11}$/',
     "LT" => '/^(?:\d{9}|\d{12})$/',
@@ -51,12 +51,17 @@ $nationalNumberFormats = [
     "SK" => '/^\d{10}$/',
     "SI" => '/^\d{8}$/',
     "ES" => '/^(?:[A-Z]\d{8}|\d{8}[A-Z]|[A-Z]\d{7}[A-Z])$/',
-    "SE" => '/^\d{12}$/',
-    "XI" => '/^\d{9}$/',
+    "SE" => '/^\d{10}01$/',
+    "XI" => '/^(?:\d{9}|\d{12})$/',
 ];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $vat = strtoupper(str_replace(' ', '', trim($_POST["vat"] ?? "")));
+    $rawVat = $_POST["vat"] ?? "";
+
+    if (!is_string($rawVat)) {$rawVat = "";}
+
+    $normalizedVat = preg_replace('/[\s\p{Z}]+/u', '', $rawVat);
+    $vat = strtoupper($normalizedVat ?? "");
     $countryCode = substr($vat, 0, 2);
     $nationalNumber = substr($vat, 2);
 
@@ -78,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 ?>
 
+</body>
 
 
 </html>
