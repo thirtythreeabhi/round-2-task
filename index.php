@@ -15,14 +15,8 @@
     <button type="submit"> Submit</button>
 </form>
 
-
 <?php
 
-$validCountryCodes = [
-    "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI",
-    "FR", "DE", "EL", "HU", "IE", "IT", "LV", "LT", "LU",
-    "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "XI",
-];
 $nationalNumberFormats = [
     "AT" => '/^U\d{8}$/',
     "BE" => '/^\d{10}$/',
@@ -54,14 +48,112 @@ $nationalNumberFormats = [
     "XI" => '/^(?:\d{9}|\d{12})$/',
 ];
 
+function makeViesResult($response = null, $httpStatus = null, $error = null)
+{
+    return [
+        "response" => $response,
+        "httpStatus" => $httpStatus,
+        "error" => $error,
+    ];
+}
+
+function getViesAvailability($countryCode)
+{
+    $curl = curl_init("https://ec.europa.eu/taxation_customs/vies/rest-api/check-status");
+
+    if ($curl === false) {
+        return null;
+    }
+
+    curl_setopt_array($curl, [
+        CURLOPT_HTTPGET => true,
+        CURLOPT_HTTPHEADER => ["Accept: application/json"],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT => 15,
+    ]);
+
+    $body = curl_exec($curl);
+    $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    if ($body === false || $httpStatus !== 200) {
+        return null;
+    }
+
+    $statusResponse = json_decode($body, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE || !is_array($statusResponse)) {
+        return null;
+    }
+
+    $availability = [
+        "serviceAvailable" => $statusResponse["vow"]["available"] ?? null,
+        "countryAvailability" => null,
+    ];
+
+    $countries = $statusResponse["countries"] ?? null;
+
+    if (!is_array($countries)) {
+        return $availability;
+    }
+
+    foreach ($countries as $countryStatus) {
+        if (
+            is_array($countryStatus)
+            && ($countryStatus["countryCode"] ?? null) === $countryCode
+            && is_string($countryStatus["availability"] ?? null)
+        ) {
+            $availability["countryAvailability"] = $countryStatus["availability"];
+            break;
+        }
+    }
+
+    return $availability;
+}
+
+function makeViesHttp500Result($countryCode, $response)
+{
+    $availability = getViesAvailability($countryCode);
+
+    if (($availability["countryAvailability"] ?? null) === "Unavailable") {
+        $error = "VIES is temporarily unavailable for country code " . $countryCode . ". Please try again later.";
+    } elseif (($availability["serviceAvailable"] ?? null) === false) {
+        $error = "VIES is currently unavailable. Please try again later.";
+    } elseif (($availability["countryAvailability"] ?? null) === "Monitoring Disabled") {
+        $error = "VIES monitoring is disabled for country code " . $countryCode . "; availability cannot be confirmed. The VIES request returned HTTP 500.";
+    } else {
+        $error = "VIES returned a server error (HTTP 500).";
+    }
+
+    return makeViesResult($response, 500, $error);
+}
+
+function getViesApiErrorCode($response)
+{
+    if (!is_array($response)) {
+        return null;
+    }
+
+    if (is_array($response["errorWrappers"] ?? null)) {
+        foreach ($response["errorWrappers"] as $errorWrapper) {
+            if (is_array($errorWrapper) && is_string($errorWrapper["error"] ?? null)) {
+                return strtoupper($errorWrapper["error"]);
+            }
+        }
+    }
+
+    $userError = $response["userError"] ?? null;
+    if (is_string($userError) && !in_array(strtoupper($userError), ["VALID", "INVALID"], true)) {
+        return strtoupper($userError);
+    }
+
+    return null;
+}
+
 function checkVatWithVies($countryCode, $nationalNumber)
 {
     if (!extension_loaded("curl")) {
-        return [
-            "response" => null,
-            "httpStatus" => null,
-            "error" => "The PHP cURL extension is not enabled.",
-        ];
+        return makeViesResult(null, null, "The PHP cURL extension is not enabled.");
     }
 
     $payload = json_encode([
@@ -70,22 +162,14 @@ function checkVatWithVies($countryCode, $nationalNumber)
     ]);
 
     if ($payload === false) {
-        return [
-            "response" => null,
-            "httpStatus" => null,
-            "error" => "Could not encode the request as JSON: " . json_last_error_msg(),
-        ];
+        return makeViesResult(null, null, "Could not encode the request as JSON: " . json_last_error_msg());
     }
 
     $url = "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
     $curl = curl_init($url);
 
     if ($curl === false) {
-        return [
-            "response" => null,
-            "httpStatus" => null,
-            "error" => "Could not initialize the cURL request.",
-        ];
+        return makeViesResult(null, null, "Could not initialize the cURL request.");
     }
 
     curl_setopt_array($curl, [
@@ -105,61 +189,67 @@ function checkVatWithVies($countryCode, $nationalNumber)
 
     if ($body === false) {
         $error = curl_error($curl);
-        return [
-            "response" => null,
-            "httpStatus" => $httpStatus,
-            "error" => "VIES request failed: " . $error,
-        ];
+        return makeViesResult(null, $httpStatus, "VIES request failed: " . $error);
     }
 
     $response = json_decode($body, true);
     $jsonError = json_last_error();
 
-    if ($httpStatus === 400) {
-        return [
-            "response" => $jsonError === JSON_ERROR_NONE ? $response : null,
-            "httpStatus" => $httpStatus,
-            "error" => "VIES rejected the request (HTTP 400).",
-        ];
-    }
+    if ($jsonError === JSON_ERROR_NONE) {
+        $apiErrorCode = getViesApiErrorCode($response);
 
-    if ($httpStatus === 500) {
-        return [
-            "response" => $jsonError === JSON_ERROR_NONE ? $response : null,
-            "httpStatus" => $httpStatus,
-            "error" => "VIES returned a server error (HTTP 500).",
-        ];
+        if ($apiErrorCode === "MS_UNAVAILABLE") {
+            return makeViesResult($response, $httpStatus, "VIES reports the member state's service is unavailable. Please try again later.");
+        }
+
+        if (in_array($apiErrorCode, ["SERVICE_UNAVAILABLE", "TIMEOUT"], true)) {
+            return makeViesResult($response, $httpStatus, "VIES is currently unavailable. Please try again later.");
+        }
+
+        if (in_array($apiErrorCode, [
+            "MS_MAX_CONCURRENT_REQ",
+            "GLOBAL_MAX_CONCURRENT_REQ",
+            "MS_MAX_CONCURRENT_REQ_TIME",
+            "GLOBAL_MAX_CONCURRENT_REQ_TIME",
+        ], true)) {
+            return makeViesResult($response, $httpStatus, "VIES is busy handling requests. Please try again later.");
+        }
+
+        if ($apiErrorCode !== null) {
+            return makeViesResult($response, $httpStatus, "VIES returned an API error: " . $apiErrorCode);
+        }
     }
 
     if ($httpStatus !== 200) {
-        return [
-            "response" => $jsonError === JSON_ERROR_NONE ? $response : null,
-            "httpStatus" => $httpStatus,
-            "error" => "Unexpected HTTP status from VIES: " . $httpStatus,
-        ];
+        if ($httpStatus === 500) {
+            return makeViesHttp500Result(
+                $countryCode,
+                $jsonError === JSON_ERROR_NONE ? $response : null
+            );
+        }
+
+        if ($httpStatus === 400) {
+            $error = "VIES rejected the request (HTTP 400).";
+        } else {
+            $error = "Unexpected HTTP status from VIES: " . $httpStatus;
+        }
+
+        return makeViesResult(
+            $jsonError === JSON_ERROR_NONE ? $response : null,
+            $httpStatus,
+            $error
+        );
     }
 
     if ($jsonError !== JSON_ERROR_NONE) {
-        return [
-            "response" => null,
-            "httpStatus" => $httpStatus,
-            "error" => "Could not decode the VIES response: " . json_last_error_msg(),
-        ];
+        return makeViesResult(null, $httpStatus, "Could not decode the VIES response: " . json_last_error_msg());
     }
 
     if (!is_array($response) || !array_key_exists("valid", $response) || !is_bool($response["valid"])) {
-        return [
-            "response" => $response,
-            "httpStatus" => $httpStatus,
-            "error" => "Unexpected VIES response: expected a boolean 'valid' field.",
-        ];
+        return makeViesResult($response, $httpStatus, "Unexpected VIES response: expected a boolean 'valid' field.");
     }
 
-    return [
-        "response" => $response,
-        "httpStatus" => $httpStatus,
-        "error" => null,
-    ];
+    return makeViesResult($response, $httpStatus);
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -174,7 +264,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if($vat === ""){
         echo "<p>Please enter a valid VAT number. </p>";
-    }elseif(!in_array($countryCode, $validCountryCodes, true)){
+    }elseif(!isset($nationalNumberFormats[$countryCode])){
         echo "<p>Unknown country code</p>";
     }
     elseif($nationalNumber === ""){
@@ -183,8 +273,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo"<p>National number format is invalid for this country. </p>";
     }
     else{
-        echo "<p>Country Code: " . htmlspecialchars($countryCode) . "</p>";
-        echo "<p>National Number: " . htmlspecialchars($nationalNumber) . "</p>";
         $viesResult = checkVatWithVies($countryCode, $nationalNumber);
 
         if ($viesResult["error"] !== null) {
@@ -221,6 +309,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 ?>
 
 </body>
-
-
 </html>
