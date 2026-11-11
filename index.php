@@ -55,6 +55,85 @@ $nationalNumberFormats = [
     "XI" => '/^(?:\d{9}|\d{12})$/',
 ];
 
+function checkVatWithVies($countryCode, $nationalNumber)
+{
+    if (!extension_loaded("curl")) {
+        return [
+            "response" => null,
+            "httpStatus" => null,
+            "error" => "The PHP cURL extension is not enabled.",
+        ];
+    }
+
+    $payload = json_encode([
+        "countryCode" => $countryCode,
+        "vatNumber" => $nationalNumber,
+    ]);
+
+    if ($payload === false) {
+        return [
+            "response" => null,
+            "httpStatus" => null,
+            "error" => "Could not encode the request as JSON: " . json_last_error_msg(),
+        ];
+    }
+
+    $url = "https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number";
+    $curl = curl_init($url);
+
+    if ($curl === false) {
+        return [
+            "response" => null,
+            "httpStatus" => null,
+            "error" => "Could not initialize the cURL request.",
+        ];
+    }
+
+    curl_setopt_array($curl, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $payload,
+        CURLOPT_HTTPHEADER => [
+            "Content-Type: application/json",
+            "Accept: application/json",
+        ],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 5,
+        CURLOPT_TIMEOUT => 15,
+    ]);
+
+    $body = curl_exec($curl);
+    $httpStatus = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    if ($body === false) {
+        $error = curl_error($curl);
+        curl_close($curl);
+
+        return [
+            "response" => null,
+            "httpStatus" => $httpStatus,
+            "error" => "VIES request failed: " . $error,
+        ];
+    }
+
+    curl_close($curl);
+
+    $response = json_decode($body, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return [
+            "response" => null,
+            "httpStatus" => $httpStatus,
+            "error" => "Could not decode the VIES response: " . json_last_error_msg(),
+        ];
+    }
+
+    return [
+        "response" => $response,
+        "httpStatus" => $httpStatus,
+        "error" => null,
+    ];
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $rawVat = $_POST["vat"] ?? "";
 
