@@ -5,7 +5,10 @@ $query = '';
 $nameSubmitted = false; // state variable to disable "search glief" button unless submit name is clicked.
 
 $apiResponse = null;
-$apiError = null;
+$apiError = null; // to save the api responses
+
+$gleifRecords = [];
+$gleifError = null; // to format the response
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -42,9 +45,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($response === false) {
                 $lastError = error_get_last();
-                $apiError = $lastError['message'] ?? 'Unknown request error.';
+                $gleifError = $lastError['message'] ?? 'Unknown request error';
             } else {
-                $apiResponse = $response;
+                $decoded = json_decode($response, true);
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $gleifError = 'Could not patse the GLIEF response';
+                } else {
+                    $gleifRecords = $decoded['data'] ?? [];
+                }
             }
         }
     }
@@ -89,6 +97,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
     </form>
+
+    <?php if ($gleifError !== null): ?>
+        <h2>GLEIF request error</h2>
+        <p><?= htmlspecialchars($gleifError, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php elseif (!empty($gleifRecords)): ?>
+        <h2>GLEIF results</h2>
+
+        <?php foreach ($gleifRecords as $record):
+            $attributes = $record['attributes'] ?? [];
+            $entity = $attributes['entity'] ?? [];
+            $address = $entity['legalAddress'] ?? [];
+        ?>
+            <section>
+                <h3><?= htmlspecialchars($entity['legalName']['name'] ?? 'Name not provided', ENT_QUOTES, 'UTF-8') ?></h3>
+                <p><strong>LEI:</strong> <?= htmlspecialchars($attributes['lei'] ?? 'Not provided', ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Country:</strong> <?= htmlspecialchars($address['country'] ?? 'Not provided', ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>City:</strong> <?= htmlspecialchars($address['city'] ?? 'Not provided', ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Status:</strong> <?= htmlspecialchars($entity['status'] ?? 'Not provided', ENT_QUOTES, 'UTF-8') ?></p>
+            </section>
+            <hr>
+        <?php endforeach; ?>
+    <?php elseif (($_POST['action'] ?? '') === 'search_glief'): ?>
+        <p>No matching companies found.</p>
+    <?php endif; ?>
 
     <script>
         const companyInput = document.getElementById("company");
