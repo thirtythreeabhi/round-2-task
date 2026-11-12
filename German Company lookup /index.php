@@ -1,8 +1,5 @@
 <?php
-session_start();
-
 $query = '';
-$nameSubmitted = false; // state variable to disable "search glief" button unless submit name is clicked.
 
 $apiResponse = null;
 $apiError = null; // to save the api responses
@@ -18,12 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "$error";
     } else {
         echo "You searched for: " . htmlspecialchars($query) . PHP_EOL;
-        if ($_POST['action'] === 'search') {
-            $_SESSION['submitted_company'] = $query;
-            $nameSubmitted = true;
-        }
-
-        if (isset($_POST['action']) && $_POST['action'] === 'search_glief') {
+        if (($_POST['action'] ?? '') === 'search_gleif') {
 
             echo '<p>Search GLEIF button clicked.</p>';
 
@@ -81,12 +73,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             id="company"
             placeholder="Enter company name"
             value="<?= htmlspecialchars($query, ENT_QUOTES, 'UTF-8') ?>"
+            maxlength="150"
             required>
 
-        <button type="submit" name="action" value="search">Submit name</button>
-        <button type="submit" name="action" value="search_glief"
-            id="gliefButton"
-            <?= !$nameSubmitted ? 'disabled' : '' ?>>Search GLIEF</button>
+        <button type="submit" name="action" value="search_gleif">
+            Search GLEIF
+        </button>
 
         <?php if ($apiError !== null): ?>
             <h2>GLEIF API request failed</h2>
@@ -118,18 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </section>
             <hr>
         <?php endforeach; ?>
-    <?php elseif (($_POST['action'] ?? '') === 'search_glief'): ?>
+    <?php elseif (($_POST['action'] ?? '') === 'search_gleif'): ?>
         <p>No matching companies found.</p>
     <?php endif; ?>
-
-    <script>
-        const companyInput = document.getElementById("company");
-        const gliefButton = document.getElementById("gliefButton");
-
-        companyInput.addEventListener('input', function() {
-            gliefButton.disabled = true;
-        })
-    </script>
 
 </body>
 
