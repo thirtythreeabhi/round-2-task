@@ -18,9 +18,9 @@
 
 ### 3. A user types "Mueller", but the company is "Müller GmbH". How does your search handle it?
 
-First, the search tries for MUELLER, if the results are less than 10, the UE is converted to ü and search is done again.
+First, the search tries for MUELLER, if the results are less than 10, the UE is converted to ü and search is done again. Similar mapping is done for other vowels as well. What remains consistent is the DE only filter.
 
-## VAT Checker
+## VAT CHECKER
 
 ### 4. What does a "valid" result prove, and what does it not prove?
 
