@@ -1,15 +1,8 @@
 <?php
+session_start();
 
 $query = '';
 $nameSubmitted = false; // state variable to disable "search glief" button unless submit name is clicked.
-$parameters = http_build_query([
-    'filter[entity.legalName]' => $query,
-    'filter[entity.jurisdiction]' => 'DE',
-    'page[size]' => 10
-]);
-
-$url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -20,20 +13,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "You searched for: " . htmlspecialchars($query) . PHP_EOL;
         if ($_POST['action'] === 'search') {
+            $_SESSION['submitted_company'] = $query;
             $nameSubmitted = true;
         }
 
         if (isset($_POST['action']) && $_POST['action'] === 'search_gleif') {
 
-            $parameters = http_build_query([
-                'filter[entity.legalName]' => $query,
-                'filter[entity.jurisdiction]' => 'DE',
-                'page[size]' => 10
-            ]);
+            echo '<p>Search GLEIF button clicked.</p>';
 
-            $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
+            // $parameters = http_build_query([
+            //     'filter[entity.legalName]' => $query,
+            //     'filter[entity.jurisdiction]' => 'DE',
+            //     'page[size]' => 10
+            // ]);
+            // if (
+            //     isset($_POST['action']) &&
+            //     $_POST['action'] === 'search_gleif'
+            // ) {
+            //     $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
 
-            echo "<p>GLEIF URL: " . htmlspecialchars($url) . "</p>";
+            //     echo "<p>Request URL: " . htmlspecialchars($url) . "</p>";
+
+            //     $response = file_get_contents($url);
+
+            //     if ($response === false) {
+            //         echo "<h2>API Request Failed</h2>";
+            //         var_dump(error_get_last());
+            //     } else {
+            //         echo "<h2>Raw GLEIF Response</h2>";
+            //         echo "<pre>";
+            //         echo htmlspecialchars($response, ENT_QUOTES, 'UTF-8');
+            //         echo "</pre>";
+            //     }
+            // }
         }
     }
 }
@@ -65,21 +77,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit" name="action" value="search">Submit name</button>
         <button type="submit" name="action" value="search_glief"
-        id = "gliefButton"
-        <?= !$nameSubmitted ? 'disabled' : '' ?>  >Search GLIEF</button>
+            id="gliefButton"
+            <?= !$nameSubmitted ? 'disabled' : '' ?>>Search GLIEF</button>
 
 
     </form>
 
-    <script> 
+    <script>
+        const companyInput = document.getElementById("company");
+        const gliefButton = document.getElementById("gliefButton");
 
-    const companyInput = document.getElementById("company");
-    const gliefButton = document.getElementById("gliefButton");
-
-    companyInput.addEventListener('input', function(){
-        gliefButton.disabled = true;
-    })
-    </script> 
+        companyInput.addEventListener('input', function() {
+            gliefButton.disabled = true;
+        })
+    </script>
 
 </body>
 
