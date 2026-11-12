@@ -13,14 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gleifError = "Company name is too long.";
     } else {
         if (($_POST['action'] ?? '') === 'search_gleif') {
-
-            $parameters = http_build_query([
-                'filter[entity.legalName]' => $query,
-                'filter[entity.jurisdiction]' => 'DE',
-                'page[size]' => 10,
-            ]);
-
-            $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
             $context = stream_context_create([
                 'http' => [
                     'method' => 'GET',
@@ -29,18 +21,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ],
             ]);
 
-            $response = @file_get_contents($url, false, $context);
+            // Generate a small set of equivalent queries, trying the typed spelling first.
+            $searchQueries = [$query];
+            $pairs = [['ä', 'ae'], ['ö', 'oe'], ['ü', 'ue'], ['ß', 'ss']];
+            for ($mask = 1; $mask < (1 << count($pairs)); $mask++) {
+                $variant = $query;
+                foreach ($pairs as $index => [$umlaut, $digraph]) {
+                    if (($mask & (1 << $index)) !== 0) {
+                        $variant = str_replace($umlaut, $digraph, $variant);
+                    } else {
+                        $variant = str_replace($digraph, $umlaut, $variant);
+                    }
+                }
+                if (!in_array($variant, $searchQueries, true)) {
+                    $searchQueries[] = $variant;
+                }
+            }
 
-            if ($response === false) {
-                $lastError = error_get_last();
-                $gleifError = $lastError['message'] ?? 'Unknown request error';
-            } else {
+            $recordsByLei = [];
+            foreach ($searchQueries as $searchQuery) {
+                $parameters = http_build_query([
+                    'filter[entity.legalName]' => $searchQuery,
+                    'filter[entity.jurisdiction]' => 'DE',
+                    'page[size]' => 10,
+                ]);
+                $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
+                $response = @file_get_contents($url, false, $context);
+
+                if ($response === false) {
+                    if (!$recordsByLei && $gleifError === null) {
+                        $lastError = error_get_last();
+                        $gleifError = $lastError['message'] ?? 'Unknown request error';
+                    }
+                    continue;
+                }
+
                 $decoded = json_decode($response, true);
                 if (json_last_error() !== JSON_ERROR_NONE) {
-                    $gleifError = 'Could not patse the GLIEF response';
-                } else {
-                    $gleifRecords = $decoded['data'] ?? [];
+                    if (!$recordsByLei && $gleifError === null) {
+                        $gleifError = 'Could not parse the GLEIF response.';
+                    }
+                    continue;
                 }
+
+                foreach ($decoded['data'] ?? [] as $record) {
+                    $lei = $record['attributes']['lei'] ?? $record['id'] ?? null;
+                    if ($lei !== null && !isset($recordsByLei[$lei])) {
+                        $recordsByLei[$lei] = $record;
+                        if (count($recordsByLei) >= 10) {
+                            break 2;
+                        }
+                    }
+                }
+            }
+            $gleifRecords = array_values($recordsByLei);
+            if ($gleifRecords) {
+                $gleifError = null;
             }
         }
     }
