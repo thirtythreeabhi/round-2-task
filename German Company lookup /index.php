@@ -1,23 +1,20 @@
 <?php
 $query = '';
 
-$apiResponse = null;
-$apiError = null; // to save the api responses
-
 $gleifRecords = [];
 $gleifError = null; // to format the response
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $query = trim($_POST['company'] ?? '');
-    if (strlen($query) > 150) {
+    if($query === ''){
+        $gleifError = 'PLease enter a company name';
+    }
+    elseif (strlen($query) > 150) {
         $error = "Company name is too long.";
         echo "$error";
     } else {
-        echo "You searched for: " . htmlspecialchars($query) . PHP_EOL;
         if (($_POST['action'] ?? '') === 'search_gleif') {
-
-            echo '<p>Search GLEIF button clicked.</p>';
 
             $parameters = http_build_query([
                 'filter[entity.legalName]' => $query,
@@ -79,15 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" name="action" value="search_gleif">
             Search GLEIF
         </button>
-
-        <?php if ($apiError !== null): ?>
-            <h2>GLEIF API request failed</h2>
-            <pre><?= htmlspecialchars($apiError, ENT_QUOTES, 'UTF-8') ?></pre>
-        <?php elseif ($apiResponse !== null): ?>
-            <h2>GLEIF API response</h2>
-            <pre><?= htmlspecialchars($apiResponse, ENT_QUOTES, 'UTF-8') ?></pre>
-        <?php endif; ?>
-
     </form>
 
     <?php if ($gleifError !== null): ?>
