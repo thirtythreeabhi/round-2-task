@@ -1,6 +1,7 @@
 <?php
 
 $query = '';
+$nameSubmitted = false; // state variable to disable "search glief" button unless submit name is clicked.
 $parameters = http_build_query([
     'filter[entity.legalName]' => $query,
     'filter[entity.jurisdiction]' => 'DE',
@@ -18,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "$error";
     } else {
         echo "You searched for: " . htmlspecialchars($query) . PHP_EOL;
+        if ($_POST['action'] === 'search') {
+            $nameSubmitted = true;
+        }
 
         if (isset($_POST['action']) && $_POST['action'] === 'search_gleif') {
 
@@ -56,14 +60,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             name="company"
             id="company"
             placeholder="Enter company name"
+            value="<?= htmlspecialchars($query, ENT_QUOTES, 'UTF-8') ?>"
             required>
 
         <button type="submit" name="action" value="search">Submit name</button>
-        <button type="submit" name="action" value="search_glief">Search GLIEF</button>
+        <button type="submit" name="action" value="search_glief"
+        id = "gliefButton"
+        <?= !$nameSubmitted ? 'disabled' : '' ?>  >Search GLIEF</button>
 
 
     </form>
 
+    <script> 
+
+    const companyInput = document.getElementById("company");
+    const gliefButton = document.getElementById("gliefButton");
+
+    companyInput.addEventListener('input', function(){
+        gliefButton.disabled = true;
+    })
+    </script> 
 
 </body>
 
