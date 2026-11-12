@@ -1,0 +1,8 @@
+{
+    "lookedUpAt": "2026-11-11T18:24:51+00:00",
+    "submittedVat": "DEDD123",
+    "countryCode": "DE",
+    "nationalNumber": "DD123",
+    "status": "invalid_format",
+    "error": "Enter a VAT number with a supported country code and format."
+}
