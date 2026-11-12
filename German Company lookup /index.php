@@ -78,6 +78,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($gleifRecords) {
                 $gleifError = null;
             }
+
+            $dataDirectory = __DIR__ . '/data';
+            if (!is_dir($dataDirectory)) {
+                mkdir($dataDirectory, 0775, true);
+            }
+            $searchesFile = $dataDirectory . '/searches.json';
+            $searchesHandle = fopen($searchesFile, 'c+');
+            if ($searchesHandle !== false && flock($searchesHandle, LOCK_EX)) {
+                $existingJson = stream_get_contents($searchesHandle);
+                $searches = $existingJson === '' ? [] : json_decode($existingJson, true);
+                if (is_array($searches) && json_last_error() === JSON_ERROR_NONE) {
+                    $searches[] = [
+                        'query' => $query,
+                        'timestamp' => date(DATE_ATOM),
+                        'records' => $gleifRecords,
+                    ];
+                    $updatedJson = json_encode($searches, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                    if ($updatedJson !== false) {
+                        rewind($searchesHandle);
+                        ftruncate($searchesHandle, 0);
+                        fwrite($searchesHandle, $updatedJson . PHP_EOL);
+                        fflush($searchesHandle);
+                    }
+                }
+                flock($searchesHandle, LOCK_UN);
+                fclose($searchesHandle);
+            }
         }
     }
 }

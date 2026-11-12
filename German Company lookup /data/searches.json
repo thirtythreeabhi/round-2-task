@@ -1,0 +1,1262 @@
+[
+    {
+        "query": "muller",
+        "timestamp": "2026-11-12T13:38:57+00:00",
+        "records": [
+            {
+                "type": "lei-records",
+                "id": "529900NH7OL4KF5K3B03",
+                "attributes": {
+                    "lei": "529900NH7OL4KF5K3B03",
+                    "entity": {
+                        "legalName": {
+                            "name": "Müller & Müller GbR",
+                            "language": "de-DE"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de-DE",
+                            "addressLines": [
+                                "Konrad-Kurzbold-Straße 7a"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Limburg an der Lahn",
+                            "region": "DE-HE",
+                            "country": "DE",
+                            "postalCode": "65549"
+                        },
+                        "headquartersAddress": {
+                            "language": "de-DE",
+                            "addressLines": [
+                                "Konrad-Kurzbold-Straße 7a"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Limburg an der Lahn",
+                            "region": "DE-HE",
+                            "country": "DE",
+                            "postalCode": "65549"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "FR3V",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "2009-09-08T22:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": [
+                            {
+                                "groupType": "STANDALONE",
+                                "events": [
+                                    {
+                                        "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                                        "effectiveDate": "2024-01-17T23:00:00Z",
+                                        "recordedDate": "2024-01-18T08:36:45Z",
+                                        "type": "CHANGE_HQ_ADDRESS",
+                                        "status": "COMPLETED"
+                                    }
+                                ]
+                            },
+                            {
+                                "groupType": "STANDALONE",
+                                "events": [
+                                    {
+                                        "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                                        "effectiveDate": "2024-01-17T23:00:00Z",
+                                        "recordedDate": "2024-01-18T08:36:45Z",
+                                        "type": "CHANGE_LEGAL_ADDRESS",
+                                        "status": "COMPLETED"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2020-03-06T13:13:17Z",
+                        "lastUpdateDate": "2025-03-07T00:30:06Z",
+                        "status": "LAPSED",
+                        "nextRenewalDate": "2025-03-06T13:13:17Z",
+                        "managingLou": "5299000J2N45DDNE4Y28",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "658425832"
+                    ],
+                    "conformityFlag": "NON_CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900NH7OL4KF5K3B03/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900NH7OL4KF5K3B03/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900NH7OL4KF5K3B03/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/529900NH7OL4KF5K3B03/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/529900NH7OL4KF5K3B03/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/529900NH7OL4KF5K3B03"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "529900UA6V18EYIZCZ31",
+                "attributes": {
+                    "lei": "529900UA6V18EYIZCZ31",
+                    "entity": {
+                        "legalName": {
+                            "name": "Müller Müller Blankenheim GbR",
+                            "language": "de-DE"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de-DE",
+                            "addressLines": [
+                                "Kölnstraße 235"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Brühl",
+                            "region": "DE-NW",
+                            "country": "DE",
+                            "postalCode": "50321"
+                        },
+                        "headquartersAddress": {
+                            "language": "de-DE",
+                            "addressLines": [
+                                "Kölnstraße 235"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Brühl",
+                            "region": "DE-NW",
+                            "country": "DE",
+                            "postalCode": "50321"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "FR3V",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": null,
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2016-07-21T11:27:56Z",
+                        "lastUpdateDate": "2021-07-19T05:07:28Z",
+                        "status": "LAPSED",
+                        "nextRenewalDate": "2017-07-21T11:27:56Z",
+                        "managingLou": "5299000J2N45DDNE4Y28",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "377667279"
+                    ],
+                    "conformityFlag": "NON_CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900UA6V18EYIZCZ31/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900UA6V18EYIZCZ31/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900UA6V18EYIZCZ31/field-modifications"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/529900UA6V18EYIZCZ31"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "391200O9KB20RJWPIT12",
+                "attributes": {
+                    "lei": "391200O9KB20RJWPIT12",
+                    "entity": {
+                        "legalName": {
+                            "name": "Immobilien-Verwaltung Müller & Müller GmbH",
+                            "language": "de"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Donaustraße 5"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Friedrichshafen",
+                            "region": null,
+                            "country": "DE",
+                            "postalCode": "88046"
+                        },
+                        "headquartersAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Donaustraße 5"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Friedrichshafen",
+                            "region": null,
+                            "country": "DE",
+                            "postalCode": "88046"
+                        },
+                        "registeredAt": {
+                            "id": "RA000355",
+                            "other": null
+                        },
+                        "registeredAs": "HRB 631576",
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "2HBR",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "1998-03-30T22:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": [
+                            {
+                                "groupType": "STANDALONE",
+                                "events": [
+                                    {
+                                        "validationDocuments": "OTHER_OFFICIAL_DOCUMENTS",
+                                        "effectiveDate": "2023-02-15T23:00:00Z",
+                                        "recordedDate": "2023-02-28T13:41:08Z",
+                                        "type": "CHANGE_LEGAL_ADDRESS",
+                                        "status": "COMPLETED"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2022-03-28T13:54:22Z",
+                        "lastUpdateDate": "2026-02-01T15:02:12Z",
+                        "status": "ISSUED",
+                        "nextRenewalDate": "2027-03-28T13:54:22Z",
+                        "managingLou": "39120001KULK7200U106",
+                        "corroborationLevel": "FULLY_CORROBORATED",
+                        "validatedAt": {
+                            "id": "RA000355",
+                            "other": null
+                        },
+                        "validatedAs": "HRB 631576",
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": "de/B8537_HRB631576",
+                    "qcc": "QDEVSRJQ4C",
+                    "gem": null,
+                    "spglobal": [
+                        "681482352"
+                    ],
+                    "conformityFlag": "CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200O9KB20RJWPIT12/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200O9KB20RJWPIT12/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200O9KB20RJWPIT12/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200O9KB20RJWPIT12/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200O9KB20RJWPIT12/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/391200O9KB20RJWPIT12"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "529900J55VAXHBJQNT88",
+                "attributes": {
+                    "lei": "529900J55VAXHBJQNT88",
+                    "entity": {
+                        "legalName": {
+                            "name": "Hans Müller & Carolin Müller GbR",
+                            "language": "de-DE"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de-DE",
+                            "addressLines": [
+                                "Olgastr. 72"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Friedrichshafen",
+                            "region": "DE-BW",
+                            "country": "DE",
+                            "postalCode": "88045"
+                        },
+                        "headquartersAddress": {
+                            "language": "de-DE",
+                            "addressLines": [
+                                "Olgastr. 72"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Friedrichshafen",
+                            "region": "DE-BW",
+                            "country": "DE",
+                            "postalCode": "88045"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "FR3V",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": null,
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2014-12-01T13:48:45Z",
+                        "lastUpdateDate": "2021-07-16T05:04:45Z",
+                        "status": "LAPSED",
+                        "nextRenewalDate": "2015-12-01T13:48:45Z",
+                        "managingLou": "5299000J2N45DDNE4Y28",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "278919148"
+                    ],
+                    "conformityFlag": "NON_CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900J55VAXHBJQNT88/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900J55VAXHBJQNT88/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/529900J55VAXHBJQNT88/field-modifications"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/529900J55VAXHBJQNT88"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "391200NNXCKLK0NJRC93",
+                "attributes": {
+                    "lei": "391200NNXCKLK0NJRC93",
+                    "entity": {
+                        "legalName": {
+                            "name": "Müller GmbH",
+                            "language": "de"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Bahnhofstr. 28"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Lichtenberg",
+                            "region": "DE-SN",
+                            "country": "DE",
+                            "postalCode": "09638"
+                        },
+                        "headquartersAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Bahnhofstr. 28"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Lichtenberg",
+                            "region": "DE-SN",
+                            "country": "DE",
+                            "postalCode": "09638"
+                        },
+                        "registeredAt": {
+                            "id": "RA000224",
+                            "other": null
+                        },
+                        "registeredAs": "HRB 2482",
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "2HBR",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "1991-05-22T22:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2026-01-19T16:19:11Z",
+                        "lastUpdateDate": "2026-01-19T16:19:11Z",
+                        "status": "ISSUED",
+                        "nextRenewalDate": "2027-01-19T16:19:11Z",
+                        "managingLou": "39120001KULK7200U106",
+                        "corroborationLevel": "FULLY_CORROBORATED",
+                        "validatedAt": {
+                            "id": "RA000224",
+                            "other": null
+                        },
+                        "validatedAs": "HRB 2482",
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": "de/U1206_HRB2482",
+                    "qcc": "QDEYJCV9B1",
+                    "gem": null,
+                    "spglobal": [
+                        "675926080"
+                    ],
+                    "conformityFlag": "CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200NNXCKLK0NJRC93/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200NNXCKLK0NJRC93/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200NNXCKLK0NJRC93/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200NNXCKLK0NJRC93/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200NNXCKLK0NJRC93/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/391200NNXCKLK0NJRC93"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "894500HJW6O0387N9261",
+                "attributes": {
+                    "lei": "894500HJW6O0387N9261",
+                    "entity": {
+                        "legalName": {
+                            "name": "Müller GbR",
+                            "language": "de"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Josephstr. 34"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Köln",
+                            "region": null,
+                            "country": "DE",
+                            "postalCode": "50678"
+                        },
+                        "headquartersAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Josephstr. 34"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Köln",
+                            "region": null,
+                            "country": "DE",
+                            "postalCode": "50678"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "FR3V",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "2017-02-20T12:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2025-04-08T10:37:33Z",
+                        "lastUpdateDate": "2026-04-08T17:02:11Z",
+                        "status": "LAPSED",
+                        "nextRenewalDate": "2026-04-08T10:37:34Z",
+                        "managingLou": "529900F6BNUR3RJ2WH29",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "1938617875"
+                    ],
+                    "conformityFlag": "NON_CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/894500HJW6O0387N9261/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/894500HJW6O0387N9261/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/894500HJW6O0387N9261/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/894500HJW6O0387N9261/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/894500HJW6O0387N9261/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/894500HJW6O0387N9261"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "894500M59PLJIW61KM49",
+                "attributes": {
+                    "lei": "894500M59PLJIW61KM49",
+                    "entity": {
+                        "legalName": {
+                            "name": "Müller-Verwaltungsgesellschaft",
+                            "language": "de"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Konrad-Adenauer-Str. 3"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Pohlheim",
+                            "region": "DE-HE",
+                            "country": "DE",
+                            "postalCode": "35415"
+                        },
+                        "headquartersAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Konrad-Adenauer-Str. 3"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Pohlheim",
+                            "region": "DE-HE",
+                            "country": "DE",
+                            "postalCode": "35415"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "FR3V",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "2024-08-01T12:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2025-01-31T12:41:26Z",
+                        "lastUpdateDate": "2026-01-26T02:43:56Z",
+                        "status": "ISSUED",
+                        "nextRenewalDate": "2027-01-31T12:41:56Z",
+                        "managingLou": "529900F6BNUR3RJ2WH29",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "1929538690"
+                    ],
+                    "conformityFlag": "CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/894500M59PLJIW61KM49/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/894500M59PLJIW61KM49/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/894500M59PLJIW61KM49/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/894500M59PLJIW61KM49/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/894500M59PLJIW61KM49/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/894500M59PLJIW61KM49"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "254900B6D82C4ABX9T98",
+                "attributes": {
+                    "lei": "254900B6D82C4ABX9T98",
+                    "entity": {
+                        "legalName": {
+                            "name": "Muller, Niklas",
+                            "language": "de"
+                        },
+                        "otherNames": [
+                            {
+                                "name": "Niklas Mueller",
+                                "language": "de",
+                                "type": "TRADING_OR_OPERATING_NAME"
+                            }
+                        ],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "en",
+                            "addressLines": [
+                                "Johann-Sebastian-Bach-Str. 23"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Kassel",
+                            "region": "DE-HE",
+                            "country": "DE",
+                            "postalCode": "34134"
+                        },
+                        "headquartersAddress": {
+                            "language": "en",
+                            "addressLines": [
+                                "Johann-Sebastian-Bach-Str. 23"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Kassel",
+                            "region": "DE-HE",
+                            "country": "DE",
+                            "postalCode": "34134"
+                        },
+                        "registeredAt": {
+                            "id": "RA888888",
+                            "other": "Municipality of Sitzes"
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "SOLE_PROPRIETOR",
+                        "legalForm": {
+                            "id": "OL20",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "1994-12-12T00:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2024-10-29T13:28:16Z",
+                        "lastUpdateDate": "2026-10-02T19:21:51Z",
+                        "status": "ISSUED",
+                        "nextRenewalDate": "2027-10-29T13:28:16Z",
+                        "managingLou": "5493001KJTIIGC8Y1R12",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA888888",
+                            "other": "Municipality of Sitzes"
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "1902206440"
+                    ],
+                    "conformityFlag": "CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/254900B6D82C4ABX9T98/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/254900B6D82C4ABX9T98/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/254900B6D82C4ABX9T98/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/254900B6D82C4ABX9T98/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/254900B6D82C4ABX9T98/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/254900B6D82C4ABX9T98"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "391200X6QCMYP48AZ776",
+                "attributes": {
+                    "lei": "391200X6QCMYP48AZ776",
+                    "entity": {
+                        "legalName": {
+                            "name": "muller GbR",
+                            "language": "de"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Uhlenflucht 12"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Scharbeutz-Klingberg",
+                            "region": "DE-SH",
+                            "country": "DE",
+                            "postalCode": "23684"
+                        },
+                        "headquartersAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Uhlenflucht 12"
+                            ],
+                            "addressNumber": null,
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Scharbeutz-Klingberg",
+                            "region": "DE-SH",
+                            "country": "DE",
+                            "postalCode": "23684"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "FR3V",
+                            "other": null
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": "2023-04-14T22:00:00Z",
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2023-05-22T05:37:53Z",
+                        "lastUpdateDate": "2026-03-25T07:12:42Z",
+                        "status": "ISSUED",
+                        "nextRenewalDate": "2027-05-22T05:37:53Z",
+                        "managingLou": "39120001KULK7200U106",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": null,
+                    "gem": null,
+                    "spglobal": [
+                        "1838634619"
+                    ],
+                    "conformityFlag": "CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200X6QCMYP48AZ776/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200X6QCMYP48AZ776/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200X6QCMYP48AZ776/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200X6QCMYP48AZ776/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200X6QCMYP48AZ776/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/391200X6QCMYP48AZ776"
+                }
+            },
+            {
+                "type": "lei-records",
+                "id": "391200FNVHTYSUNNND03",
+                "attributes": {
+                    "lei": "391200FNVHTYSUNNND03",
+                    "entity": {
+                        "legalName": {
+                            "name": "Wolfgang Müller",
+                            "language": "de"
+                        },
+                        "otherNames": [],
+                        "transliteratedOtherNames": [],
+                        "legalAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Weickenbach 17"
+                            ],
+                            "addressNumber": "17",
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Sonnefeld",
+                            "region": null,
+                            "country": "DE",
+                            "postalCode": "96242"
+                        },
+                        "headquartersAddress": {
+                            "language": "de",
+                            "addressLines": [
+                                "Weickenbach 17"
+                            ],
+                            "addressNumber": "17",
+                            "addressNumberWithinBuilding": null,
+                            "mailRouting": null,
+                            "city": "Sonnefeld",
+                            "region": null,
+                            "country": "DE",
+                            "postalCode": "96242"
+                        },
+                        "registeredAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "registeredAs": null,
+                        "jurisdiction": "DE",
+                        "category": "GENERAL",
+                        "legalForm": {
+                            "id": "9999",
+                            "other": "individuals acting in a business capacity"
+                        },
+                        "associatedEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "status": "ACTIVE",
+                        "expiration": {
+                            "date": null,
+                            "reason": null
+                        },
+                        "successorEntity": {
+                            "lei": null,
+                            "name": null
+                        },
+                        "successorEntities": [],
+                        "creationDate": null,
+                        "subCategory": null,
+                        "otherAddresses": [],
+                        "eventGroups": []
+                    },
+                    "registration": {
+                        "initialRegistrationDate": "2018-08-13T16:18:09Z",
+                        "lastUpdateDate": "2023-11-15T18:47:23Z",
+                        "status": "LAPSED",
+                        "nextRenewalDate": "2021-08-13T16:18:09Z",
+                        "managingLou": "39120001KULK7200U106",
+                        "corroborationLevel": "ENTITY_SUPPLIED_ONLY",
+                        "validatedAt": {
+                            "id": "RA999999",
+                            "other": null
+                        },
+                        "validatedAs": null,
+                        "otherValidationAuthorities": []
+                    },
+                    "bic": null,
+                    "mic": null,
+                    "ocid": null,
+                    "qcc": "QDETQ96CBP",
+                    "gem": null,
+                    "spglobal": [
+                        "578100517"
+                    ],
+                    "conformityFlag": "NON_CONFORMING"
+                },
+                "relationships": {
+                    "managing-lou": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200FNVHTYSUNNND03/managing-lou"
+                        }
+                    },
+                    "lei-issuer": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200FNVHTYSUNNND03/lei-issuer"
+                        }
+                    },
+                    "field-modifications": {
+                        "links": {
+                            "related": "https://api.gleif.org/api/v1/lei-records/391200FNVHTYSUNNND03/field-modifications"
+                        }
+                    },
+                    "direct-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200FNVHTYSUNNND03/direct-parent-reporting-exception"
+                        }
+                    },
+                    "ultimate-parent": {
+                        "links": {
+                            "reporting-exception": "https://api.gleif.org/api/v1/lei-records/391200FNVHTYSUNNND03/ultimate-parent-reporting-exception"
+                        }
+                    }
+                },
+                "links": {
+                    "self": "https://api.gleif.org/api/v1/lei-records/391200FNVHTYSUNNND03"
+                }
+            }
+        ]
+    }
+]
