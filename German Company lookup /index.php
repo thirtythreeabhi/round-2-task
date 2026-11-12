@@ -17,9 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Company name is too long.";
         echo "$error";
     } else {
-        echo "You searched for: " . htmlspecialchars($query);
+        echo "You searched for: " . htmlspecialchars($query) . PHP_EOL;
+
+        if (isset($_POST['action']) && $_POST['action'] === 'search_gleif') {
+
+            $parameters = http_build_query([
+                'filter[entity.legalName]' => $query,
+                'filter[entity.jurisdiction]' => 'DE',
+                'page[size]' => 10
+            ]);
+
+            $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
+
+            echo "<p>GLEIF URL: " . htmlspecialchars($url) . "</p>";
+        }
     }
 }
+
 
 ?>
 <!DOCTYPE html>
@@ -44,11 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             placeholder="Enter company name"
             required>
 
-        <button type="submit">Search</button>
-
-    </form>
-    <form method="post">
+        <button type="submit" name="action" value="search">Submit name</button>
         <button type="submit" name="action" value="search_glief">Search GLIEF</button>
+
+
     </form>
 
 
