@@ -4,6 +4,9 @@ session_start();
 $query = '';
 $nameSubmitted = false; // state variable to disable "search glief" button unless submit name is clicked.
 
+$apiResponse = null;
+$apiError = null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $query = trim($_POST['company'] ?? '');
@@ -17,35 +20,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nameSubmitted = true;
         }
 
-        if (isset($_POST['action']) && $_POST['action'] === 'search_gleif') {
+        if (isset($_POST['action']) && $_POST['action'] === 'search_glief') {
 
             echo '<p>Search GLEIF button clicked.</p>';
 
-            // $parameters = http_build_query([
-            //     'filter[entity.legalName]' => $query,
-            //     'filter[entity.jurisdiction]' => 'DE',
-            //     'page[size]' => 10
-            // ]);
-            // if (
-            //     isset($_POST['action']) &&
-            //     $_POST['action'] === 'search_gleif'
-            // ) {
-            //     $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
+            $parameters = http_build_query([
+                'filter[entity.legalName]' => $query,
+                'filter[entity.jurisdiction]' => 'DE',
+                'page[size]' => 10,
+            ]);
 
-            //     echo "<p>Request URL: " . htmlspecialchars($url) . "</p>";
+            $url = 'https://api.gleif.org/api/v1/lei-records?' . $parameters;
+            $context = stream_context_create([
+                'http' => [
+                    'header' => "Accept: application/vnd.api+json\r\n",
+                    'timeout' => 15,
+                ],
+            ]);
 
-            //     $response = file_get_contents($url);
+            $response = @file_get_contents($url, false, $context);
 
-            //     if ($response === false) {
-            //         echo "<h2>API Request Failed</h2>";
-            //         var_dump(error_get_last());
-            //     } else {
-            //         echo "<h2>Raw GLEIF Response</h2>";
-            //         echo "<pre>";
-            //         echo htmlspecialchars($response, ENT_QUOTES, 'UTF-8');
-            //         echo "</pre>";
-            //     }
-            // }
+            if ($response === false) {
+                $lastError = error_get_last();
+                $apiError = $lastError['message'] ?? 'Unknown request error.';
+            } else {
+                $apiResponse = $response;
+            }
         }
     }
 }
@@ -80,6 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             id="gliefButton"
             <?= !$nameSubmitted ? 'disabled' : '' ?>>Search GLIEF</button>
 
+        <?php if ($apiError !== null): ?>
+            <h2>GLEIF API request failed</h2>
+            <pre><?= htmlspecialchars($apiError, ENT_QUOTES, 'UTF-8') ?></pre>
+        <?php elseif ($apiResponse !== null): ?>
+            <h2>GLEIF API response</h2>
+            <pre><?= htmlspecialchars($apiResponse, ENT_QUOTES, 'UTF-8') ?></pre>
+        <?php endif; ?>
 
     </form>
 
