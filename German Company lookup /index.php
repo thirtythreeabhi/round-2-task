@@ -84,33 +84,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2>GLEIF results</h2>
         <p>Found <?= count($gleifRecords) ?> matching companies.</p>
         <?php foreach ($gleifRecords as $record):
+            $notAvailable = 'Not available from GLEIF';
             $attributes = $record['attributes'] ?? [];
             $entity = $attributes['entity'] ?? [];
-            $legalName = $entity['legalName']['name'] ?? 'Not provided';
-            $lei = $attributes['lei'] ?? 'Not provided';
-            $registrationNumber = $entity['registeredAs'] ?? 'Not provided';
-            $registrationAuthority = $entity['registeredAt']['id'] ?? 'Not provided';
-            $legalFormId = $entity['legalForm']['id'] ?? 'Not provided';
-            $legalFormDescription = $entity['legalForm']['other'] ?? 'Not provided';
+            $legalName = $entity['legalName']['name'] ?? $notAvailable;
+            $lei = $attributes['lei'] ?? $notAvailable;
+            $registrationNumber = $entity['registeredAs'] ?? $notAvailable;
+            $registrationAuthorityCode = $entity['registeredAt']['id'] ?? $notAvailable;
+            $registrationAuthorityOther = $entity['registeredAt']['other'] ?? $notAvailable;
+            $legalFormId = $entity['legalForm']['id'] ?? $notAvailable;
+            $legalFormOther = $entity['legalForm']['other'] ?? $notAvailable;
             $address = $entity['legalAddress'] ?? [];
-            $street = implode(', ', $address['addressLines'] ?? []);
-            $city = $address['city'] ?? 'Not provided';
-            $postalCode = $address['postalCode'] ?? 'Not provided';
-            $country = $address['country'] ?? 'Not provided';
-            $entityStatus = $entity['status'] ?? 'Not provided';
-            $registrationStatus = $attributes['registration']['status'] ?? 'Not provided';
+            $addressParts = array_merge(
+                $address['addressLines'] ?? [],
+                array_filter([
+                    $address['addressNumber'] ?? null,
+                    $address['addressNumberWithinBuilding'] ?? null,
+                    $address['mailRouting'] ?? null,
+                    $address['city'] ?? null,
+                    $address['region'] ?? null,
+                    $address['postalCode'] ?? null,
+                    $address['country'] ?? null,
+                ], static fn($part) => $part !== null && $part !== '')
+            );
+            $fullAddress = $addressParts ? implode(', ', $addressParts) : $notAvailable;
+            $entityStatus = $entity['status'] ?? $notAvailable;
+            $registrationStatus = $attributes['registration']['status'] ?? $notAvailable;
         ?>
             <section>
                 <h3><?= htmlspecialchars($legalName, ENT_QUOTES, 'UTF-8') ?></h3>
                 <p><strong>LEI:</strong> <?= htmlspecialchars($lei, ENT_QUOTES, 'UTF-8') ?></p>
                 <p><strong>Registration Number:</strong> <?= htmlspecialchars($registrationNumber, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>Registration Authority ID:</strong> <?= htmlspecialchars($registrationAuthority, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>Legal Form ID:</strong> <?= htmlspecialchars($legalFormId, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>Legal Form:</strong> <?= htmlspecialchars($legalFormDescription, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>Street:</strong> <?= htmlspecialchars($street, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>City:</strong> <?= htmlspecialchars($city, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>Postal Code:</strong> <?= htmlspecialchars($postalCode, ENT_QUOTES, 'UTF-8') ?></p>
-                <p><strong>Country:</strong> <?= htmlspecialchars($country, ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Registration Authority Code:</strong> <?= htmlspecialchars($registrationAuthorityCode, ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Registration Authority (other):</strong> <?= htmlspecialchars($registrationAuthorityOther, ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Legal Form Code:</strong> <?= htmlspecialchars($legalFormId, ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Legal Form (other):</strong> <?= htmlspecialchars($legalFormOther, ENT_QUOTES, 'UTF-8') ?></p>
+                <p><strong>Full Legal Address:</strong> <?= htmlspecialchars($fullAddress, ENT_QUOTES, 'UTF-8') ?></p>
                 <p><strong>Entity Status:</strong> <?= htmlspecialchars($entityStatus, ENT_QUOTES, 'UTF-8') ?></p>
                 <p><strong>LEI Registration Status:</strong> <?= htmlspecialchars($registrationStatus, ENT_QUOTES, 'UTF-8') ?></p>
             </section>
